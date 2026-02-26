@@ -341,9 +341,6 @@ function M.enable(opts)
       codeLens = {
         dynamicRegistration = true,
       },
-      diagnostic = {
-        dynamicRegistration = true,
-      },
     },
     workspace = {
       didChangeWatchedFiles = {
@@ -351,6 +348,8 @@ function M.enable(opts)
       },
     },
   })
+
+  if vim.version().minor >= 12 then vim.tbl_deep_extend("keep", cap, { textDocument = { diagnostic = { dynamicRegistration = true } } }) end
 
   ---@type vim.lsp.Config
   vim.lsp.config[constants.lsp_client_name] = {
